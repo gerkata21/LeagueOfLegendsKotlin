@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".view.view.CharacterDetails">
+
+    <ImageView
+        android:id="@+id/avatar_iv"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/champion_avatar"/>
+
+    <TextView
+        android:id="@+id/Name_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_title"
+        android:fontFamily="@font/optimus_princeps_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatar_iv">
+    </TextView>
+    <TextView
+        android:id="@+id/style_Tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/standard_text_size"
+        android:text="@string/style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Name_Tv">
+    </TextView>
+
+    <TextView
+        android:id="@+id/Stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="@dimen/standard_text_size"
+        android:padding="20dp"
+        android:fontFamily="@font/optimus_princeps_semibold"
+        android:text="@string/stats"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/style_Tv" />
+
+    <TextView
+        android:id="@+id/per_level_increase_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textSize="@dimen/standard_text_size"
+        android:fontFamily="@font/optimus_princeps_semibold"
+        android:padding="20dp"
+        android:text="@string/per_level_increase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/style_Tv" />
+
+    <RelativeLayout
+        android:id="@+id/stats_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Stats">
+
+        <TextView
+            android:id="@+id/hp_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/health"
+            android:textSize="@dimen/standard_text_size">
+        </TextView>
+
+        <TextView
+            android:id="@+id/mana_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@id/hp_tv"
+            android:text="@string/mana">
+        </TextView>
+
+        <TextView
+            android:id="@+id/armor_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/mana_tv"
+            android:text="@string/armor">
+        </TextView>
+
+        <TextView
+            android:id="@+id/magic_resist_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@id/armor_tv"
+            android:text="@string/magic_resist">
+        </TextView>
+
+        <TextView
+            android:id="@+id/move_speed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/magic_resist_tv"
+            android:text="@string/move_speed">
+        </TextView>
+
+        <TextView
+            android:id="@+id/attack_damage_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/move_speed_tv"
+            android:text="@string/attack_damage">
+        </TextView>
+
+        <TextView
+            android:id="@+id/attack_range_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/attack_damage_tv"
+            android:text="@string/attack_range">
+        </TextView>
+
+        <TextView
+            android:id="@+id/attack_speed_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/attack_range_tv"
+            android:text="@string/attack_speed">
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/per_level_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/per_level_increase_tv"
+        app:layout_constraintStart_toStartOf="@+id/per_level_increase_tv"
+        app:layout_constraintTop_toBottomOf="@+id/per_level_increase_tv">
+
+        <TextView
+            android:id="@+id/hp_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+
+        <TextView
+            android:id="@+id/mana_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@id/hp_inc_tv"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+
+        <TextView
+            android:id="@+id/armor_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/mana_inc_tv"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+
+        <TextView
+            android:id="@+id/magic_resist_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@id/armor_inc_tv"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+
+        <TextView
+            android:id="@+id/non"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/magic_resist_inc_tv"
+            android:text="@string/None">
+        </TextView>
+
+        <TextView
+            android:id="@+id/attack_damage_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/non"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+
+        <TextView
+            android:id="@+id/Non1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/attack_damage_inc_tv"
+            android:layout_centerHorizontal="true"
+            android:text="@string/None">
+        </TextView>
+
+        <TextView
+            android:id="@+id/attack_speed_inc_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/standard_text_size"
+            android:layout_below="@+id/Non1"
+            android:layout_centerHorizontal="true"
+            android:text="@string/value">
+        </TextView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/return_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/returnButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

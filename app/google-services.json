@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "351632896494",
+    "project_id": "leagueoflegendskotlin",
+    "storage_bucket": "leagueoflegendskotlin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351632896494:android:19e4f5a122d6588cfedeff",
+        "android_client_info": {
+          "package_name": "com.example.leagueoflegendskotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "351632896494-913r472100us9r5d9opc0it9bojbae70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuJWyLJ4jOEB0jhLE2wEX_eVgE3dE9VAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "351632896494-913r472100us9r5d9opc0it9bojbae70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

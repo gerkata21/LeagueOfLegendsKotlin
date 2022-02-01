@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/account_popMenu"
+        android:title="@string/account"/>
+
+    <item
+        android:id="@+id/settings_popMenu"
+        android:title="@string/settings"/>
+
+    <item
+        android:id="@+id/logout_popMenu"
+        android:title="@string/logout"/>
+
+</menu>

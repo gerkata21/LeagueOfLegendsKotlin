@@ -7,19 +7,15 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.leagueoflegendskotlin.R
 import com.example.leagueoflegendskotlin.view.db.ChampionDao
-import com.example.leagueoflegendskotlin.view.util.CHAMPION_DATABASE_NAME
+import com.example.leagueoflegendskotlin.view.model.Resource
 import com.example.leagueoflegendskotlin.view.view.adapters.ChampionAdapter
+import com.example.leagueoflegendskotlin.view.view.adapters.ChampionClickListener
 import com.example.leagueoflegendskotlin.view.viewmodel.MainActivityViewModel
-import com.example.leagueoflegendskotlin.view.util.ChampionClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
 import javax.inject.Inject
@@ -29,6 +25,8 @@ class MainActivity : AppCompatActivity(), ChampionClickListener {
 
     @Inject
     lateinit var championDao: ChampionDao
+
+    private val TAG = "MainActivity"
 
     private val viewModel : MainActivityViewModel by viewModels()
 
@@ -49,6 +47,26 @@ class MainActivity : AppCompatActivity(), ChampionClickListener {
 
         viewModel.getChampionsSortedByName.observe(this, Observer {
             mAdapter.submitList(it)
+        })
+
+        viewModel.championData.observe(this, Observer { response ->
+            when(response){
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let {
+                        Toast.makeText(this,"Database Updated",Toast.LENGTH_SHORT)
+                    }
+                }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { message ->
+                        Log.e(TAG, "An Error Occurred: $message")
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
         })
 
         // TODO: I am waiting for more functionality ;)
@@ -99,7 +117,15 @@ class MainActivity : AppCompatActivity(), ChampionClickListener {
     private fun setupRecyclerView() = mChampionRv.apply{
         mAdapter = ChampionAdapter()
         adapter = mAdapter
-        layoutManager = LinearLayoutManager(this@MainActivity)
+        layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+    }
+
+    private fun hideProgressBar(){
+        mProgressBar.visibility = View.INVISIBLE
+    }
+
+    private fun showProgressBar(){
+        mProgressBar.visibility = View.VISIBLE
     }
 
     //Initialize Views
@@ -112,21 +138,15 @@ class MainActivity : AppCompatActivity(), ChampionClickListener {
         if(viewModel.getUser().email != null) {
             mUserTv.text = ("Logged in As: " + viewModel.getUser().email)
         }
-        mChampionRv.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        }
     }
 
-    //EmailClicked Function
+    //Clicked Function
     override fun onChampionClicked(view: View?, position: Int) {
-
         Intent(this,CharacterDetails::class.java)
-            .also{
-            characterIntent ->
-            characterIntent.putExtra("champion", viewModel.championLiveData.value!![position] as Serializable)
-            startActivity(characterIntent)
-        }
+            .also{ characterIntent ->
+                characterIntent.putExtra("champion", position)
+                startActivity(characterIntent)
+            }
     }
-
 
 }

@@ -1,6 +1,5 @@
 package com.example.leagueoflegendskotlin.view.view.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leagueoflegendskotlin.R
 import com.example.leagueoflegendskotlin.view.db.Champion
-import com.example.leagueoflegendskotlin.view.util.ChampionClickListener
-import java.util.*
 
 
+class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>(){
 
-class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>(), View.OnClickListener{
+
+    inner class ChampionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
+
+        private lateinit var mListener: ChampionClickListener
+
+        fun setListener(listener: ChampionClickListener){
+            this.mListener = listener
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            mListener.onChampionClicked(v, adapterPosition)
+        }
+
+    }
 
 
-    inner class ChampionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     val diffCallback = object : DiffUtil.ItemCallback<Champion>(){
         override fun areItemsTheSame(oldItem: Champion, newItem: Champion): Boolean {
@@ -37,21 +48,26 @@ class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>
     fun submitList(list: List<Champion>) = differ.submitList(list)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChampionViewHolder {
-        return ChampionViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.champion_row,
-                parent,
-                false
-            )
-        )
+
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val myView = layoutInflater.inflate(R.layout.champion_row, parent, false)
+        val championViewHolder = ChampionViewHolder(myView)
+        championViewHolder.setListener((parent.context as ChampionClickListener))
+
+        return championViewHolder
+
+    }
+
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
 
     override fun onBindViewHolder(holder: ChampionViewHolder, position: Int) {
 
-        var championIconIv: ImageView = holder.itemView.findViewById(R.id.champion_avatar)
-        var championNameTv: TextView = holder.itemView.findViewById(R.id.champion_name)
-        var championTitleTv: TextView = holder.itemView.findViewById(R.id.champion_title)
-        var championDescriptionTv: TextView = holder.itemView.findViewById(R.id.champion_description)
+        val championIconIv: ImageView = holder.itemView.findViewById(R.id.champion_avatar)
+        val championNameTv: TextView = holder.itemView.findViewById(R.id.champion_name)
+        val championTitleTv: TextView = holder.itemView.findViewById(R.id.champion_title)
+        val championDescriptionTv: TextView = holder.itemView.findViewById(R.id.champion_description)
 
         val champion = differ.currentList[position]
 
@@ -62,19 +78,10 @@ class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>
 
         holder.itemView.apply {
             Glide.with(this).load(champion.icon).into(championIconIv)
+            championNameTv.text = champion.name
+            championTitleTv.text = champion.title
+            championDescriptionTv.text = champion.description
         }
-        championNameTv.text = champion.name
-        championTitleTv.text = champion.title
-        championDescriptionTv.text = champion.description
-    }
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-
-    override fun onClick(v: View?) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface LeagueAPIService {
     @GET("ngryman/lol-champions/master/champions.json")
     suspend fun getResponse():
-            Response<Champions?>?
+            Response<Champions>
 }

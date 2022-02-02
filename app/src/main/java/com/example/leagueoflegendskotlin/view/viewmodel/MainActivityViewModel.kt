@@ -2,15 +2,18 @@ package com.example.leagueoflegendskotlin.view.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.leagueoflegendskotlin.view.db.Champion
 import com.example.leagueoflegendskotlin.view.model.championsData.Champions
 import com.example.leagueoflegendskotlin.view.model.Repository
+import com.example.leagueoflegendskotlin.view.model.Resource
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,15 +27,10 @@ class MainActivityViewModel @Inject constructor(
     private var userMutableLiveData = MutableLiveData<FirebaseUser>()
     private var loggedOutMutableLiveData = MutableLiveData<Boolean>()
 
-    //Champions
-    private val mutableChampionLiveData = MutableLiveData<Champions>()
-
     //LOCAL DATABASE
     val getChampionsSortedByName = repository.getAllChampionsSortedByName()
 
-
-    var championLiveData: LiveData<Champions> = MutableLiveData<Champions>()
-        get() = mutableChampionLiveData
+    val championData: MutableLiveData<Resource<Champions>> = MutableLiveData()
 
     init {
         repository.repository(application)
@@ -40,26 +38,31 @@ class MainActivityViewModel @Inject constructor(
         loggedOutMutableLiveData = repository.getLoggedOutMutableLiveData()
     }
 
-    fun getLoggedOutMutableLiveData() : MutableLiveData<Boolean>{
+    fun getLoggedOutMutableLiveData(): MutableLiveData<Boolean> {
         return loggedOutMutableLiveData
     }
 
-    fun logOut(){
+    fun logOut() {
         return repository.logOut()
     }
 
-    fun getUser() : FirebaseUser{
+    fun getUser(): FirebaseUser {
         return repository.getUser()
     }
 
     //RESPONSE
-    fun getChampionsAndSaveToDb(){
+    fun getChampionsAndSaveToDb() {
         viewModelScope.launch {
+
+            championData.postValue(Resource.Loading())
             val githubResponse = repository.getResponse()
+            championData.postValue(handleChampionsResponse(githubResponse))
+
             if (githubResponse!!.isSuccessful) {
                 githubResponse.body()?.let {
-                    for (item in it){
-                        val champion = Champion(item.description,
+                    for (item in it) {
+                        val champion = Champion(
+                            item.description,
                             item.icon,
                             item.name,
                             item.stats,
@@ -70,9 +73,19 @@ class MainActivityViewModel @Inject constructor(
                     }
                 }
             } else {
-               //(TODO) HANDLE ERROR MESSAGE
+                championData.postValue(Resource.Error(githubResponse.message()))
+            }
+
+        }
+    }
+
+    private fun handleChampionsResponse(response: Response<Champions>) : Resource<Champions>{
+        if(response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                return Resource.Success(resultResponse)
             }
         }
+        return Resource.Error(response.message())
     }
 
 }

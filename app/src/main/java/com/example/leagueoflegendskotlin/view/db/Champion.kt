@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.leagueoflegendskotlin.view.model.championsData.Stats
+import java.io.Serializable
 
 @Entity(tableName = "champion_table", indices = [Index(value = ["name","title"], unique = true)])
 data class Champion(
@@ -15,7 +16,7 @@ data class Champion(
     val tags: List<String>? = null,
     val title: String = "",
     var linkFix : Boolean = false
-) {
+){
     @PrimaryKey(autoGenerate = true)
     var id:Int? = null
 }

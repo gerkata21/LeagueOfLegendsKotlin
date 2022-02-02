@@ -6,13 +6,24 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.leagueoflegendskotlin.R
+import com.example.leagueoflegendskotlin.view.db.Champion
 import com.example.leagueoflegendskotlin.view.model.championsData.ChampionsItem
+import com.example.leagueoflegendskotlin.view.viewmodel.DetailsViewModel
+import com.example.leagueoflegendskotlin.view.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import kotlinx.coroutines.launch
+/*TODO - */
+/*
 @AndroidEntryPoint
 class CharacterDetails : AppCompatActivity() {
+
+
+
+    private val viewModel : DetailsViewModel by viewModels()
 
     private lateinit var mAvatar : ImageView
     private lateinit var mNameTitleTv : TextView
@@ -33,7 +44,6 @@ class CharacterDetails : AppCompatActivity() {
     private lateinit var mArmorPerLevel : TextView
     private lateinit var mBackBtn : Button
 
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +55,12 @@ class CharacterDetails : AppCompatActivity() {
             finish()
         }
 
+
         val mIntent = intent
-        val mChampion = mIntent.getSerializableExtra("champion") as ChampionsItem
+        val mChampionLocation = mIntent.getSerializableExtra("champion")
+        val mChampion = viewModel
+
+
 
         Glide.with(this).load(mChampion.icon).centerCrop()
             .placeholder(R.drawable.ic_launcher_background)
@@ -94,3 +108,5 @@ class CharacterDetails : AppCompatActivity() {
     }
 
 }
+
+ */

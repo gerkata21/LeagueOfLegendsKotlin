@@ -79,10 +79,10 @@ class Repository @Inject constructor(
     fun getUser() : FirebaseUser{
         return fAuth.currentUser!!
     }
+
+
     //RetrofitResponse
-
-
-    suspend fun getResponse(): retrofit2.Response<Champions?>? {
+    suspend fun getResponse(): retrofit2.Response<Champions> {
         val retrofit = RetrofitClient.getRetrofitClient()
         val apiService = retrofit.create(LeagueAPIService::class.java)
         return apiService.getResponse()

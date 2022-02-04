@@ -16,7 +16,7 @@ data class Champion(
     val tags: List<String>? = null,
     val title: String = "",
     var linkFix : Boolean = false
-){
+) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id:Int? = null
 }

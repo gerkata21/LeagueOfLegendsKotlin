@@ -16,18 +16,18 @@ import javax.inject.Inject
 
 
 class Repository @Inject constructor(
-    private val championDao: ChampionDao
+    private val championDao: ChampionDao,
+    private var application: Application
 ) {
 
-    private lateinit var application : Application
+    //private lateinit var application : Application
 
     private lateinit var userMutableLiveData : MutableLiveData<FirebaseUser>
     private lateinit var fAuth : FirebaseAuth
     private lateinit var loggedOutMutableData : MutableLiveData<Boolean>
 
 
-    fun repository(app: Application){
-        this.application = app
+    fun repository(){
         fAuth = FirebaseAuth.getInstance()
         userMutableLiveData = MutableLiveData<FirebaseUser>()
         loggedOutMutableData = MutableLiveData<Boolean>()

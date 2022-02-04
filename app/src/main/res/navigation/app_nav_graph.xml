@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/championsFragment">
+
+    <fragment
+        android:id="@+id/championFragment"
+        android:name="com.example.leagueoflegendskotlin.view.view.fragments.ChampionFragment"
+        android:label="ChampionFragment" >
+
+        <argument
+            android:name="champion"
+            app:argType="com.example.leagueoflegendskotlin.view.db.Champion" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/championsFragment"
+        android:name="com.example.leagueoflegendskotlin.view.view.fragments.ChampionsFragment"
+        android:label="ChampionsFragment" >
+        <action
+            android:id="@+id/action_championsFragment_to_championFragment"
+            app:destination="@id/championFragment" />
+
+
+    </fragment>
+
+</navigation>

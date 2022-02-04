@@ -1,16 +1,12 @@
 package com.example.leagueoflegendskotlin.view.viewmodel
 
 import android.app.Application
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.leagueoflegendskotlin.view.db.Champion
 import com.example.leagueoflegendskotlin.view.model.championsData.Champions
 import com.example.leagueoflegendskotlin.view.model.Repository
 import com.example.leagueoflegendskotlin.view.model.Resource
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseUser
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -18,8 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    val repository: Repository,
-    application: Application
+    private val repository: Repository
 ) : ViewModel() {
 
 
@@ -33,9 +28,10 @@ class MainActivityViewModel @Inject constructor(
     val championData: MutableLiveData<Resource<Champions>> = MutableLiveData()
 
     init {
-        repository.repository(application)
+        repository.repository()
         userMutableLiveData = repository.getMutableLiveData()
         loggedOutMutableLiveData = repository.getLoggedOutMutableLiveData()
+        getChampionsAndSaveToDb()
     }
 
     fun getLoggedOutMutableLiveData(): MutableLiveData<Boolean> {
@@ -51,7 +47,7 @@ class MainActivityViewModel @Inject constructor(
     }
 
     //RESPONSE
-    fun getChampionsAndSaveToDb() {
+    private fun getChampionsAndSaveToDb() {
         viewModelScope.launch {
 
             championData.postValue(Resource.Loading())
@@ -71,6 +67,7 @@ class MainActivityViewModel @Inject constructor(
                         )
                         repository.insertChampionInDB(champion)
                     }
+                    championData.postValue(Resource.Success(it))
                 }
             } else {
                 championData.postValue(Resource.Error(githubResponse.message()))

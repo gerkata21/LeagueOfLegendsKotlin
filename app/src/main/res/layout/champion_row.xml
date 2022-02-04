@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:padding="10dp"
+    android:padding="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -21,8 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/champion_name"
-        android:textSize="@dimen/standard_text_size"
+        android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/champion_avatar"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,23 +31,22 @@
         android:id="@+id/champion_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textSize="16sp"
+        android:layout_marginStart="10dp"
         android:text="@string/champion_title"
+        android:textSize="13sp"
         android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/champion_avatar"
         app:layout_constraintTop_toBottomOf="@id/champion_name" />
 
     <TextView
         android:id="@+id/champion_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textSize="14sp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:text="@string/champion_description"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/champion_avatar"
         app:layout_constraintTop_toBottomOf="@id/champion_title" />
 

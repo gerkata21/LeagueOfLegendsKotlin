@@ -14,9 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LeagueOfLegendsKotlin">
         <activity
-            android:name=".view.view.CharacterDetails"
-            android:exported="true" />
-        <activity
             android:name=".view.view.LoginActivity"
             android:exported="false" />
         <activity

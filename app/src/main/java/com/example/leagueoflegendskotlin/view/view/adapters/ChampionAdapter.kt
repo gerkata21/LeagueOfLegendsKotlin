@@ -1,5 +1,6 @@
 package com.example.leagueoflegendskotlin.view.view.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,26 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.leagueoflegendskotlin.R
 import com.example.leagueoflegendskotlin.view.db.Champion
+import kotlinx.android.synthetic.main.champion_row.view.*
 
 
-class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>(){
+class ChampionAdapter() : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>(){
 
 
-    inner class ChampionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener{
-
-        private lateinit var mListener: ChampionClickListener
-
-        fun setListener(listener: ChampionClickListener){
-            this.mListener = listener
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            mListener.onChampionClicked(v, adapterPosition)
-        }
-
-    }
-
+    inner class ChampionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 
     val diffCallback = object : DiffUtil.ItemCallback<Champion>(){
@@ -52,7 +40,8 @@ class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>
         val layoutInflater = LayoutInflater.from(parent.context)
         val myView = layoutInflater.inflate(R.layout.champion_row, parent, false)
         val championViewHolder = ChampionViewHolder(myView)
-        championViewHolder.setListener((parent.context as ChampionClickListener))
+
+
 
         return championViewHolder
 
@@ -64,10 +53,6 @@ class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>
 
     override fun onBindViewHolder(holder: ChampionViewHolder, position: Int) {
 
-        val championIconIv: ImageView = holder.itemView.findViewById(R.id.champion_avatar)
-        val championNameTv: TextView = holder.itemView.findViewById(R.id.champion_name)
-        val championTitleTv: TextView = holder.itemView.findViewById(R.id.champion_title)
-        val championDescriptionTv: TextView = holder.itemView.findViewById(R.id.champion_description)
 
         val champion = differ.currentList[position]
 
@@ -77,11 +62,26 @@ class ChampionAdapter : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>
         }
 
         holder.itemView.apply {
-            Glide.with(this).load(champion.icon).into(championIconIv)
-            championNameTv.text = champion.name
-            championTitleTv.text = champion.title
-            championDescriptionTv.text = champion.description
+            Glide.with(this).load(champion.icon).into(champion_avatar)
+            champion_name.text = champion.name
+            champion_name.underline()
+            champion_title.text = champion.title
+            champion_description.text = champion.description
+
+            setOnClickListener {
+                onItemClickListener?.let { it(champion) }
+            }
         }
+    }
+
+    private var onItemClickListener: ((Champion) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Champion) -> Unit){
+        onItemClickListener = listener
+    }
+
+    private fun TextView.underline() {
+        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
     }
 
 }

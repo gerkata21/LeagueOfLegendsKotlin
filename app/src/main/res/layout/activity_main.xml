@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".view.view.MainActivity">
+    android:background="@color/black">
+
     <include
         android:id="@+id/ToolBar"
         layout="@layout/toolbar"
@@ -13,27 +14,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" />
 
-    <ProgressBar
-        android:id="@+id/ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </ProgressBar>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/champion_rv"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/UserId_Tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvUserId"
         app:layout_constraintTop_toBottomOf="@+id/ToolBar">
-    </androidx.recyclerview.widget.RecyclerView>
+
+        <fragment
+            android:id="@+id/champNavHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ToolBar"
+            app:navGraph="@navigation/app_nav_graph" />
+
+    </FrameLayout>
+
     <TextView
-        android:id="@+id/UserId_Tv"
+        android:id="@+id/tvUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -45,11 +48,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
     </TextView>
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,28 +1,24 @@
 package com.example.leagueoflegendskotlin.view.viewmodel
 
-import android.app.Application
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.leagueoflegendskotlin.view.model.Repository
 import com.google.firebase.auth.FirebaseUser
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class LogInRegisterViewModel @Inject constructor(
-    val repository: Repository,
-    application: Application
+    private val repository: Repository
 ) : ViewModel() {
 
     //private var repository = Repository()
     private var userMutableLiveData = MutableLiveData<FirebaseUser>()
 
     init {
-        repository.repository(application)
+        repository.repository()
         userMutableLiveData = repository.getMutableLiveData()
     }
 

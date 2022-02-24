@@ -4,14 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/app_background"
-    tools:context=".view.view.LoginActivity">
-    <include
-        android:id="@+id/logoBar"
-        layout="@layout/logobar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+    android:background="@drawable/app_background">
 
     <RelativeLayout
         android:id="@+id/page_content"
@@ -21,7 +14,7 @@
         android:paddingRight="@dimen/standard_page_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoBar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/email_address_tv"
@@ -32,18 +25,20 @@
             android:layout_marginBottom="5dp"
             android:text="@string/email_address">
         </TextView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Login_Email_Box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/email_address_tv"
             app:errorEnabled="true">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Login_Email_Et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/testAccountString"
                 android:background="@color/white_dim"
+                android:text="@string/testAccountString"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,6 +51,7 @@
             app:layout_constraintBottom_toTopOf="@+id/Login_passwordBox"
             app:layout_constraintStart_toStartOf="parent">
         </TextView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/Login_passwordBox"
             android:layout_width="match_parent"
@@ -64,13 +60,14 @@
             app:endIconMode="password_toggle"
             app:errorEnabled="true"
             app:placeholderText="See Criteria Below">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/Login_Password_Et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/testPassString"
                 android:background="@color/white_dim"
                 android:inputType="textPassword"
+                android:text="@string/testPassString"
                 android:textColor="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 

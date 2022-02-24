@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.leagueoflegendskotlin.R
@@ -14,14 +15,12 @@ import kotlinx.android.synthetic.main.character_fragment.*
 
 class ChampionFragment : Fragment(R.layout.character_fragment) {
 
-    lateinit var viewModel : MainActivityViewModel
+    private val mainViewModel: MainActivityViewModel by activityViewModels()
     private val args: ChampionFragmentArgs by navArgs()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = (activity as MainActivity).viewModel
 
         setupViews()
         backBtn()

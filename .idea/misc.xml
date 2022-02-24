@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/activity_login.xml" value="0.4263157894736842" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/activity_main.xml" value="0.2653985507246377" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/activity_register.xml" value="0.2653985507246377" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/blank_fragment.xml" value="0.342451874366768" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/champion_row.xml" value="0.626358695652174" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/character_fragment.xml" value="0.2653985507246377" />
+        <entry key="..\:/Projects/Kotlin/LeagueOfLegendsKotlin/app/src/main/res/layout/loggedin_fragment.xml" value="0.7041666666666667" />
         <entry key="..\:/Projects/LeagueOfLegendsKotlin/app/src/main/res/layout-v26/champion_row.xml" value="0.43125" />
         <entry key="..\:/Projects/LeagueOfLegendsKotlin/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.23560910307898258" />
         <entry key="..\:/Projects/LeagueOfLegendsKotlin/app/src/main/res/layout-w936dp/activity_login.xml" value="0.2380464480874317" />

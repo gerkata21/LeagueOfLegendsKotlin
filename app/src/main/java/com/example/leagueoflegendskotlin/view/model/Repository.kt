@@ -23,9 +23,8 @@ class Repository @Inject constructor(
     //private lateinit var application : Application
 
     private lateinit var userMutableLiveData : MutableLiveData<FirebaseUser>
-    private lateinit var fAuth : FirebaseAuth
     private lateinit var loggedOutMutableData : MutableLiveData<Boolean>
-
+    private lateinit var fAuth : FirebaseAuth
 
     fun repository(){
         fAuth = FirebaseAuth.getInstance()
@@ -48,6 +47,7 @@ class Repository @Inject constructor(
                     }
             })
     }
+
     //Login Call
     @RequiresApi(Build.VERSION_CODES.P)
     fun login (UserID: String, UserPassword: String){
@@ -62,24 +62,27 @@ class Repository @Inject constructor(
                     }
             })
     }
+
     //Logout User
     fun logOut (){
         fAuth.signOut()
         loggedOutMutableData.postValue(true)
     }
+
     //User Status - Logged/Logged Out
     fun getLoggedOutMutableLiveData() : MutableLiveData<Boolean>{
         return loggedOutMutableData
     }
+
     //User List
     fun getMutableLiveData() : MutableLiveData<FirebaseUser>{
         return userMutableLiveData
     }
-    //Firebase CurrentUser
-    fun getUser() : FirebaseUser{
-        return fAuth.currentUser!!
-    }
 
+    //Firebase CurrentUser
+    fun getUser() : FirebaseUser? {
+        return fAuth.currentUser
+    }
 
     //RetrofitResponse
     suspend fun getResponse(): retrofit2.Response<Champions> {

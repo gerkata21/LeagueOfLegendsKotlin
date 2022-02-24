@@ -42,7 +42,7 @@ class MainActivityViewModel @Inject constructor(
         return repository.logOut()
     }
 
-    fun getUser(): FirebaseUser {
+    fun getUser(): FirebaseUser? {
         return repository.getUser()
     }
 

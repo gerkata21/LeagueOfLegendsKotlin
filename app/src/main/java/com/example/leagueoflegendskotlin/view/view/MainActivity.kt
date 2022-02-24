@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.example.leagueoflegendskotlin.R
 import com.example.leagueoflegendskotlin.view.viewmodel.LogInRegisterViewModel
 import com.example.leagueoflegendskotlin.view.viewmodel.MainActivityViewModel
@@ -49,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (item.title.equals("Logout")) {
                     mainViewModel.logOut()
-                    handleUserLogOut()
                     Toast.makeText(
                         application,
                         "Logout",
@@ -62,18 +62,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun handleUserLogOut(){
-        mainViewModel.getLoggedOutMutableLiveData().observe(this,{
-            if(it){
-
-            }
-        })
-    }
-
     //Initialize Views
     private fun initializeViews(){
-
         logInRegisterViewModel.getUserMutableLiveData().observe(this,{ user ->
             tvUserId.text = ("Logged in As: ${user.email}")
         })

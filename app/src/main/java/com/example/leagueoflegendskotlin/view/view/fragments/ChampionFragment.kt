@@ -15,16 +15,13 @@ import kotlinx.android.synthetic.main.character_fragment.*
 
 class ChampionFragment : Fragment(R.layout.character_fragment) {
 
-    private val mainViewModel: MainActivityViewModel by activityViewModels()
     private val args: ChampionFragmentArgs by navArgs()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
         backBtn()
-
 
     }
 
@@ -53,11 +50,12 @@ class ChampionFragment : Fragment(R.layout.character_fragment) {
         attack_damage_inc_tv.text = champion.stats.attackDamagePerLevel.toString()
         attack_speed_inc_tv.text = champion.stats.attackSpeedPerLevel.toString()
         armor_inc_tv.text = champion.stats.armorPerLevel.toString()
+
     }
 
     private fun backBtn(){
-        return_btn.setOnClickListener {
-            activity?.onBackPressed()
-        }
+
+        return_btn.setOnClickListener { activity?.onBackPressed() }
+
     }
 }

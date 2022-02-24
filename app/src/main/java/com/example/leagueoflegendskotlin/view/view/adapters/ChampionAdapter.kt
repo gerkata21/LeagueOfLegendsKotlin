@@ -4,7 +4,6 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -17,15 +16,12 @@ import kotlinx.android.synthetic.main.champion_row.view.*
 
 class ChampionAdapter() : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolder>(){
 
-
     inner class ChampionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
-
-    val diffCallback = object : DiffUtil.ItemCallback<Champion>(){
+    private val diffCallback = object : DiffUtil.ItemCallback<Champion>(){
         override fun areItemsTheSame(oldItem: Champion, newItem: Champion): Boolean {
             return oldItem.id == newItem.id
         }
-
         override fun areContentsTheSame(oldItem: Champion, newItem: Champion): Boolean {
             return oldItem.hashCode() == newItem.hashCode()
         }
@@ -39,20 +35,13 @@ class ChampionAdapter() : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolde
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val myView = layoutInflater.inflate(R.layout.champion_row, parent, false)
-        val championViewHolder = ChampionViewHolder(myView)
 
-
-
-        return championViewHolder
-
+        return ChampionViewHolder(myView)
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount(): Int { return differ.currentList.size }
 
     override fun onBindViewHolder(holder: ChampionViewHolder, position: Int) {
-
 
         val champion = differ.currentList[position]
 
@@ -76,12 +65,8 @@ class ChampionAdapter() : RecyclerView.Adapter<ChampionAdapter.ChampionViewHolde
 
     private var onItemClickListener: ((Champion) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Champion) -> Unit){
-        onItemClickListener = listener
-    }
+    fun setOnItemClickListener(listener: (Champion) -> Unit){ onItemClickListener = listener }
 
-    private fun TextView.underline() {
-        paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
-    }
+    private fun TextView.underline() { paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG }
 
 }

@@ -1,6 +1,5 @@
 package com.example.leagueoflegendskotlin.view.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.leagueoflegendskotlin.view.db.Champion
 import com.example.leagueoflegendskotlin.view.model.championsData.Champions
@@ -20,7 +19,7 @@ class MainActivityViewModel @Inject constructor(
 
     //Firebase
     private var userMutableLiveData = MutableLiveData<FirebaseUser>()
-    private var loggedOutMutableLiveData = MutableLiveData<Boolean>()
+
 
     //LOCAL DATABASE
     val getChampionsSortedByName = repository.getAllChampionsSortedByName()
@@ -30,12 +29,7 @@ class MainActivityViewModel @Inject constructor(
     init {
         repository.repository()
         userMutableLiveData = repository.getMutableLiveData()
-        loggedOutMutableLiveData = repository.getLoggedOutMutableLiveData()
         getChampionsAndSaveToDb()
-    }
-
-    fun getLoggedOutMutableLiveData(): MutableLiveData<Boolean> {
-        return loggedOutMutableLiveData
     }
 
     fun logOut() {

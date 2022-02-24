@@ -29,11 +29,11 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         val navController = findNavController()
 
-        viewModel.getUserMutableLiveData().observe(viewLifecycleOwner, Observer { user ->
-            if(user.email != null){
+        viewModel.getLoggedInMutableLiveData().observe(viewLifecycleOwner, Observer { login ->
+            if(login){
                 navController.navigate(R.id.championsFragment)
             } else {
-                navController.navigate(R.id.loginFragment)
+                savedStateHandle.set(LOGIN_SUCCESSFUL, false)
             }
         })
 
@@ -44,7 +44,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         val mPasswordEt = Login_Password_Et
 
         //Login Button Click Listener
-
         mLoginBtn.setOnClickListener {
             var email = mEmailEt.text.toString()
             var password = mPasswordEt.text.toString()

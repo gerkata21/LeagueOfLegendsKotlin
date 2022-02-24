@@ -16,9 +16,11 @@ class LogInRegisterViewModel @Inject constructor(
 
     //private var repository = Repository()
     private var userMutableLiveData = MutableLiveData<FirebaseUser>()
+    private var loggedInMutableLiveData = MutableLiveData<Boolean>()
 
     init {
         repository.repository()
+        loggedInMutableLiveData = repository.getLoggedInMutableLiveData()
         userMutableLiveData = repository.getMutableLiveData()
     }
 
@@ -31,6 +33,11 @@ class LogInRegisterViewModel @Inject constructor(
     fun login (userID: String,userPass: String){
         repository.login(userID,userPass)
     }
+
+    fun getLoggedInMutableLiveData(): MutableLiveData<Boolean> {
+        return loggedInMutableLiveData
+    }
+
 
     fun getUserMutableLiveData(): MutableLiveData<FirebaseUser> {
         return userMutableLiveData

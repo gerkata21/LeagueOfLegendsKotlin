@@ -20,16 +20,14 @@ class Repository @Inject constructor(
     private var application: Application
 ) {
 
-    //private lateinit var application : Application
-
     private lateinit var userMutableLiveData : MutableLiveData<FirebaseUser>
-    private lateinit var loggedOutMutableData : MutableLiveData<Boolean>
+    private lateinit var loggedInMutableData : MutableLiveData<Boolean>
     private lateinit var fAuth : FirebaseAuth
 
     fun repository(){
         fAuth = FirebaseAuth.getInstance()
         userMutableLiveData = MutableLiveData<FirebaseUser>()
-        loggedOutMutableData = MutableLiveData<Boolean>()
+        loggedInMutableData = MutableLiveData<Boolean>()
     }
 
     //FIREBASE
@@ -53,9 +51,10 @@ class Repository @Inject constructor(
     fun login (UserID: String, UserPassword: String){
         fAuth.signInWithEmailAndPassword(UserID, UserPassword)
             .addOnCompleteListener(application.mainExecutor, { task ->
-                    if(task.isSuccessful){
+                    if(task.isSuccessful) {
                         userMutableLiveData.postValue(fAuth.currentUser)
-                    } else{
+                        loggedInMutableData.postValue(true)
+                    } else {
                         Toast.makeText(application,
                             "Login Failed: " + task.exception!!.message,
                             Toast.LENGTH_LONG).show()
@@ -64,25 +63,19 @@ class Repository @Inject constructor(
     }
 
     //Logout User
-    fun logOut (){
+    fun logOut () {
         fAuth.signOut()
-        loggedOutMutableData.postValue(true)
+        loggedInMutableData.postValue(false)
     }
 
     //User Status - Logged/Logged Out
-    fun getLoggedOutMutableLiveData() : MutableLiveData<Boolean>{
-        return loggedOutMutableData
-    }
+    fun getLoggedInMutableLiveData() : MutableLiveData<Boolean>{ return loggedInMutableData }
 
     //User List
-    fun getMutableLiveData() : MutableLiveData<FirebaseUser>{
-        return userMutableLiveData
-    }
+    fun getMutableLiveData() : MutableLiveData<FirebaseUser>{ return userMutableLiveData }
 
     //Firebase CurrentUser
-    fun getUser() : FirebaseUser? {
-        return fAuth.currentUser
-    }
+    fun getUser() : FirebaseUser? { return fAuth.currentUser }
 
     //RetrofitResponse
     suspend fun getResponse(): retrofit2.Response<Champions> {

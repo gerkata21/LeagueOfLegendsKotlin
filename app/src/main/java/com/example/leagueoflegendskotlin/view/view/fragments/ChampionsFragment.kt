@@ -32,12 +32,12 @@ class ChampionsFragment : Fragment(R.layout.fragment_champions) {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = findNavController()
-        logInRegisterViewModel.getUserMutableLiveData().observe(viewLifecycleOwner, Observer { user ->
-            if (user.email != null) {
+        logInRegisterViewModel.getLoggedInMutableLiveData().observe(viewLifecycleOwner, Observer { user ->
+            if (user) {
                 setupRecyclerView()
                 getChampionsData()
                 updateChampionDb()
-            } else {
+            } else if (!user){
                 navController.navigate(R.id.loginFragment)
             }
         })
@@ -63,7 +63,6 @@ class ChampionsFragment : Fragment(R.layout.fragment_champions) {
 
     override fun onResume() {
         super.onResume()
-
         mAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("champion", it)
@@ -80,7 +79,6 @@ class ChampionsFragment : Fragment(R.layout.fragment_champions) {
         adapter = mAdapter
         layoutManager = LinearLayoutManager(requireContext())
     }
-
 
     private fun updateChampionDb(){
         mainViewModel.championData.observe(viewLifecycleOwner, Observer { response ->
@@ -104,19 +102,14 @@ class ChampionsFragment : Fragment(R.layout.fragment_champions) {
         })
     }
 
-
     private fun getChampionsData() {
         mainViewModel.getChampionsSortedByName.observe(viewLifecycleOwner, Observer {
             mAdapter.differ.submitList(it)
         })
     }
 
-    private fun hideProgressBar(){
-        ProgressBar.visibility = View.INVISIBLE
-    }
+    private fun hideProgressBar(){ ProgressBar.visibility = View.INVISIBLE }
 
-    private fun showProgressBar(){
-        ProgressBar.visibility = View.VISIBLE
-    }
+    private fun showProgressBar(){ ProgressBar.visibility = View.VISIBLE }
 
 }

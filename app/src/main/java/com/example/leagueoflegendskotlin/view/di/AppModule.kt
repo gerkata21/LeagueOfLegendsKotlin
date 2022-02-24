@@ -31,7 +31,4 @@ object AppModule {
     @Singleton
     fun provideChampionDao(dp : ChampionDataBase) = dp.getChampionDao()
 
-
-
-
 }
